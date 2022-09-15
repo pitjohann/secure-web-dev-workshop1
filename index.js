@@ -5,17 +5,19 @@
 const filmingLocations = require('./lieux-de-tournage-a-paris.json')
 
 console.log('🚀 It Works!');
-
+//console.log(filmingLocations);
 /**
  * 💅 Try to produce the most readable code, use meaningful variable names
  * Your intentions should be clear by just reading the code
  * Good luck, have fun !
  */
 
+
 // 📝 TODO: Number of filming locations
 // 1. Make the function return the number of filming locations
 function getFilmingLocationsNumber () {
-	return ''
+
+	return filmingLocations.length
 }
 console.log(`There is ${getFilmingLocationsNumber()} filming locations in Paris`)
 
@@ -23,9 +25,11 @@ console.log(`There is ${getFilmingLocationsNumber()} filming locations in Paris`
 // 1. Implement the function
 // 2. Log the first and last item in array
 function sortFilmingLocationsByStartDate () {
-	return ''
+	let test =  filmingLocations.sort(function(a,b){ return new Date(a.fields.date_debut) - new Date(b.fields.date_debut);});
+	test = test.reverse();
+	return (test[0], test[filmingLocations.length-1]);
 }
-console.log(``)
+console.log(sortFilmingLocationsByStartDate())
 
 // 📝 TODO: Number of filming locations in 2020 only
 // 1. Make the function return the number of filming locations in 2020 only
