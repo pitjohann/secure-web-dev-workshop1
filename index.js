@@ -35,9 +35,17 @@ console.log(sortFilmingLocationsByStartDate())
 // 1. Make the function return the number of filming locations in 2020 only
 // 2. Log the result
 function getFilmingLocationsNumber2020 () {
-	return ''
+	let result = []
+	for(let element of filmingLocations){
+		if(element.fields.annee_tournage == "2020")
+		{
+			result.push(element)
+		}
+
+	}
+	return result.length
 }
-console.log()
+console.log(getFilmingLocationsNumber2020())
 
 // 📝 TODO: Number of filming locations per year
 // 1. Implement the function, the expected result is an object with years as
@@ -48,9 +56,23 @@ console.log()
 //    }
 // 2. Log the result
 function getFilmingLocationsNumberPerYear () {
-	return {}
+	let carte = {};
+
+	for(let element of filmingLocations )
+	{
+		if(carte[element.fields.annee_tournage] !== undefined)
+		{
+			carte[element.fields.annee_tournage] += 1;
+		}
+		else
+		{
+			carte[element.fields.annee_tournage] = 1;
+		}
+
+	}
+	return carte
 }
-console.log()
+console.log(getFilmingLocationsNumberPerYear())
 
 // 📝 TODO: Number of filming locations by district (arrondissement)
 // 1. Implement the function, the expected result is an object with
