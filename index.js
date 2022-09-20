@@ -83,33 +83,91 @@ console.log(getFilmingLocationsNumberPerYear())
 //    }
 // 2. Log the result
 function getFilmingLocationsNumberPerDistrict () {
-	return {}
+	let dico = {};
+
+	for(let element of filmingLocations )
+	{
+		if(dico[element.fields. ardt_lieu] !== undefined)
+		{
+			dico[element.fields. ardt_lieu] += 1;
+		}
+		else
+		{
+			dico[element.fields. ardt_lieu] = 1;
+		}
+
+	}
+	return dico
 }
-console.log()
+console.log(getFilmingLocationsNumberPerDistrict())
 
 // 📝 TODO: Number of locations per film, sorted in descending order
 // 1. Implement the function, result expected as an array of object like:
 //    const result = [{film: 'LRDM - Patriot season 2', locations: 12}, {...}]
 // 2. Log the first and last item of the array
 function getFilmLocationsByFilm () {
-	return []
+	let dico2 = {};
+
+	for(let element of filmingLocations )
+	{
+		if(dico2[element.fields.nom_tournage] !== undefined)
+		{
+			dico2[element.fields. nom_tournage] += 1;
+		}
+		else
+		{
+			dico2[element.fields. nom_tournage] = 1;
+		}
+
+	}
+	let arr = []
+	let film = Object.keys(dico2);
+	for (let key of film){
+		arr.push({'film' : key ,locations:dico2[key]})
+	}
+
+	return arr;
+
+
 }
-console.log()
+console.log(getFilmLocationsByFilm())
 
 // 📝 TODO: Number of different films
 // 1. Implement the function
 // 2. Log the result
 function getNumberOfFilms() {
-	return ''
+	let dictio = {};
+	for(let element of filmingLocations )
+	{
+		if(dictio[element.fields.nom_tournage] !== undefined)
+		{
+			dictio[element.fields. nom_tournage] += 1;
+		}
+		else
+		{
+			dictio[element.fields. nom_tournage] = 1;
+		}
+
+	}
+	let result = Object.keys(dictio);
+	return result.length;
 }
+
+console.log(getNumberOfFilms());
 
 // 📝 TODO: All the filming locations of `LRDM - Patriot season 2`
 // 1. Return an array with all filming locations of LRDM - Patriot season 2
 // 2. Log the result
 function getArseneFilmingLocations () {
-	return []
+	let array = [];
+	for (let element of filmingLocations){
+		if(element.fields.nom_tournage === "LRDM - Patriot season 2"){
+			array.push(element.fields.adresse_lieu);
+		}
+	}
+	return array
 }
-
+console.log(getArseneFilmingLocations())
 // 📝 TODO: Tous les arrondissement des lieux de tournage de nos films favoris
 //  (favoriteFilms)
 // 1. Return an array of all the districts of each favorite films given as a
@@ -117,7 +175,20 @@ function getArseneFilmingLocations () {
 //    const films = { 'LRDM - Patriot season 2': ['75013'] }
 // 2. Log the result
 function getFavoriteFilmsLocations (favoriteFilmsNames) {
-	return []
+	let dictionnaire = {};
+	for(const elements of favoriteFilmsNames){
+		dictionnaire[elements] = [];
+	}
+	for (let element of filmingLocations){
+		if (dictionnaire[element.fields.nom_tournage] !== undefined ){
+			dictionnaire[element.fields.nom_tournage].push(element.fields.ardt_lieu);
+		}
+	}
+	for(const elements of favoriteFilmsNames){
+		dictionnaire[elements] = [...new Set(dictionnaire[elements])];
+
+	}
+	return dictionnaire;
 }
 const favoriteFilms =
 	[
@@ -126,6 +197,7 @@ const favoriteFilms =
 		'Emily in Paris',
 	]
 
+console.log(getFavoriteFilmsLocations(favoriteFilms))
 // 📝 TODO: All filming locations for each film
 //     e.g. :
 //     const films = {
@@ -133,24 +205,56 @@ const favoriteFilms =
 //        'Une jeune fille qui va bien': [{...}]
 //     }
 function getFilmingLocationsPerFilm () {
-	return { }
+	let dictionnaire = {};
+	for(let element of filmingLocations){
+		if (dictionnaire[element.fields.nom_tournage] !== undefined ){
+			dictionnaire[element.fields.nom_tournage].push(element.fields.adresse_lieu);
+		}
+		else{
+			dictionnaire[element.fields.nom_tournage] = [element.fields.adresse_lieu];
+		}
+	}
+	return dictionnaire;
 }
-
+console.log(getFilmingLocationsPerFilm())
 // 📝 TODO: Count each type of film (Long métrage, Série TV, etc...)
 // 1. Implement the function
 // 2. Log the result
 function countFilmingTypes () {
-	return {}
+	let dictionnaire = {};
+	for(let element of filmingLocations){
+		if (dictionnaire[element.fields.nom_tournage] === undefined ){
+			dictionnaire[element.fields.nom_tournage] =element.fields.type_tournage;
+		}
+	}
+	let dico = {}
+	let arr = Object.values(dictionnaire);
+	for(let value of arr){
+		if(dico[value] !==undefined){
+			dico[value] +=1;
+		}
+		else{
+			dico[value] = 1;
+		}
+	}
+	return dico;
 }
-
+console.log(countFilmingTypes())
 // 📝 TODO: Sort each type of filming by count, from highest to lowest
 // 1. Implement the function. It should return a sorted array of objects like:
 //    [{type: 'Long métrage', count: 1234}, {...}]
 // 2. Log the result
 function sortedCountFilmingTypes () {
-	return []
+	let dico = countFilmingTypes();
+	let typeFilms = Object.keys(dico);
+	let arr = []
+	for (let key of typeFilms){
+		arr.push({'type' : key ,count:dico[key]})
+	}
+	arr.sort((a,b)=>b.count - a.count)
+	return arr
 }
-
+console.log(sortedCountFilmingTypes())
 /**
  * This arrow functions takes a duration in milliseconds and returns a
  * human-readable string of the duration
