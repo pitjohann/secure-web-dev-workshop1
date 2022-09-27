@@ -37,7 +37,7 @@ console.log(sortFilmingLocationsByStartDate())
 function getFilmingLocationsNumber2020 () {
 	let result = []
 	for(let element of filmingLocations){
-		if(element.fields.annee_tournage == "2020")
+		if(element.fields.annee_tournage === "2020")
 		{
 			result.push(element)
 		}
@@ -267,9 +267,16 @@ const duration = (ms) => `${(ms/(1000*60*60*24)).toFixed(0)} days, ${((ms/(1000*
 // 1. Implement the function
 // 2. Log the filming location, and its computed duration
 function calculateLongestDuration(){
-
+	let resultArray = [];
+	for (let element of filmingLocations){
+		let dureeFilmLoc = new Date(element.fields.date_fin) - new Date(element.fields.date_debut);
+		resultArray.push({'tournage': element.fields.nom_tournage, 'lieu':element.fields.adresse_lieu,duree: duration(dureeFilmLoc)})
+	}
+	resultArray.sort((a,b)=>b.duree - a.duree);
+	resultArray.reverse();
+	return resultArray[0];
 }
-
+console.log(calculateLongestDuration())
 // 📝 TODO: Compute the average filming duration
 // 1. Implement the function
 // 2. Log the result
