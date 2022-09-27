@@ -39,7 +39,7 @@ function getFilmingLocationsNumber2020 () {
 	for(let element of filmingLocations){
 		if(element.fields.annee_tournage === "2020")
 		{
-			result.push(element)
+			result.push(element);
 		}
 
 	}
