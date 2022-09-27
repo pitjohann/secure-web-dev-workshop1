@@ -266,6 +266,9 @@ const duration = (ms) => `${(ms/(1000*60*60*24)).toFixed(0)} days, ${((ms/(1000*
 // 📝 TODO: Find the filming location with the longest duration
 // 1. Implement the function
 // 2. Log the filming location, and its computed duration
+function calculateLongestDuration(){
+
+}
 
 // 📝 TODO: Compute the average filming duration
 // 1. Implement the function
